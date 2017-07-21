@@ -1,0 +1,190 @@
+<!--{template common/header}-->
+<!--[name]Power列表页[/name]-->
+<!--{eval $list = array();}-->
+<!--{eval $wheresql = category_get_wheresql($cat);}-->
+<!--{eval $list = category_get_list_ext($cat, $wheresql, $page);}-->
+<style id="diy_style" type="text/css"></style>
+
+<!--{ad/text/wp a_t}-->
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+
+<body class="paged page page-id-642 page-template page-template-blog-php paged-2 page-paged-2  sb-right skin-blue bp-active">
+<div id="social-wrapper">
+  <div id="scroller"> <span id="scroller-title">大家在说<span class="scroller-bullet">&rsaquo;&rsaquo;</span></span>
+    <div id="scroller-marquee-wrapper"> 
+      
+      <!--[diy=power2]-->
+      <div id="power2" class="area"></div>
+      <!--[/diy]--> 
+      
+    </div>
+  </div>
+  
+  <!--{subtemplate common/social}--> 
+</div>
+<div id="content-wrapper">
+  <div id="content" class="shift-down">
+    <div id="dropdown-filter">
+      <div class="order-by-text curr">$cat[catname]</div>
+      <div class="cl"></div>
+    </div>
+    
+    <!--{loop $list['list'] $key $value}--> 
+    <!--{eval $highlight = article_title_style($value);}-->
+    <div class="post post-loop" > 
+      <!--{if $value[pic]}-->
+      <div class="post-thumbnail"> <a href="portal.php?mod=view&aid=$value[aid]" class="xi2"> <img src="$value[cover]" style="width: 100px; height: 130px;" alt="$value[title]"> </a></div>
+      <!--{/if}-->
+      <div class="post-text" style="width: 473px;">
+        <div class="post-tc cl">
+        <div class="left" style="width: 375px;">
+          <h2><a href="portal.php?mod=view&aid=$value[aid]">$value[title]</a></h2>
+          <p>$value[summary]</p>
+          <div class="post-meta"> $value[dateline] - <!--{if $value[catname] && $cat[subs]}--><a href="{$portalcategory[$value['catid']]['caturl']}" title="$value[catname]">$value[catname]</a> - <!--{/if}-->$value[viewnum]次阅读</div>
+        </div>
+        <div class="post-scores">
+          <div class="site-score" style="background: none repeat scroll 0% 0% #41A3D2;">
+            <div class="site-score-title">评论</div>
+            <!--{if $_G['cache']['plugin']['singcere_power_ext']['ds_on']}--> 
+            <!--多说评论数--> 
+            <span class="bubble ds-thread-count" data-thread-key="portal-article-$value[aid]" >0</span> 
+            <!--{else}--> 
+            <!--DX评论数--> 
+            <span class="bubble ds-thread-count">$value[commentnum]</span> 
+            <!--{/if}--> 
+          </div>
+          <a class="artcile-view" href="javascript:;" onClick="articlepreview(this)" data-aid="$value[aid]">阅读</a>
+        </div>
+        </div>
+        <div class="prediv post-preview-$value[aid] cl" style="display:none"></div>
+      </div>
+    </div>
+    <!--{/loop}--> 
+    
+    <!--[diy=listloopbottom]-->
+    <div id="listloopbottom" class="area"></div>
+    <!--[/diy]--> 
+    <!--{ad/articlelist/mbm hm/3}--><!--{ad/articlelist/mbm hm/4}--> 
+    <!--{if $list['multi']}-->
+    <div class="pgs cl">{$list['multi']}</div>
+    <!--{/if}--> 
+    <!--[diy=diycontentbottom]-->
+    <div id="diycontentbottom" class="area"></div>
+    <!--[/diy]--> 
+    
+  </div>
+  <div id="sidebar">
+    <div id="sidebar-posts-widget-3" class="widget sidebarposts">
+      <div class="posts-widget"> 
+        <!--[diy=power4]-->
+        <div id="power4" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+    <div id="bp_core_recently_active_widget-3" class="widget widget_bp_core_recently_active_widget">
+      <h3>最新评论</h3>
+      <div class="avatar-block"> 
+        <!--{if $_G['cache']['plugin']['singcere_power_ext']['ds_on']}--> 
+        <!--多说评论-->
+        <ul class="ds-recent-comments" data-num-items="5"></ul>
+        <!-- 多说js加载开始--> 
+        <script type="text/javascript">
+			var duoshuoQuery = {short_name:"{$_G['cache']['plugin']['singcere_power_ext']['ds_short_name']}"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = 'http://static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script> 
+        <!--{else}-->
+        <!--DX评论-->
+        <link rel="stylesheet" type="text/css" href="template/singcere_inspiration/src/css/embed.css" media="all">
+        <ul class="ds-recent-comments" id="ds-recent-comments">
+          <!--{loop $latestcomments $comm}-->
+          <li class="ds-comment ds-show-avatars">
+            <div class="ds-avatar"><!--{avatar($comm[uid],small)}--></div>
+            <div class="ds-meta">$comm[username]<span class="ds-time" ><!--{date($comm[dateline], 'u')}--></span></div>
+            <div class="ds-thread-title">在 <a href="portal.php?mod=view&aid=$comm[id]#comments">$comm[title]</a> 中评论</div>
+            <div class="ds-excerpt">$comm[message]</div>
+          </li>
+          <!--{/loop}-->
+        </ul>
+        <!--{/if}-->
+      </div>
+    </div>
+    <div id="gp-items-you-follow" class="widget wpfp_users_favorites_widget_view">
+      <ul>
+        <!--[diy=power7]-->
+        <div id="power7" class="area"></div>
+        <!--[/diy]-->
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="footer-widgets-border-left"></div>
+<div class="footer-widgets-border-right"></div>
+<div id="footer-widgets">
+  <div class="footer-widget-outer footer-third">
+    <div id="footer-posts-widget-3" class="footer-widget-inner widget footerposts">
+      <div class="posts-widget"> 
+        <!--[diy=power8]-->
+        <div id="power8" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+  </div>
+  <div class="footer-widget-outer footer-third">
+    <div id="footer-posts-widget-4" class="footer-widget-inner widget footerposts">
+      <div class="posts-widget"> 
+        <!--[diy=power9]-->
+        <div id="power9" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+  </div>
+  <div class="footer-widget-outer footer-third">
+    <div id="footer-posts-widget-5" class="footer-widget-inner widget footerposts">
+      <div class="posts-widget"> 
+        <!--[diy=power10]-->
+        <div id="power10" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+</body>
+
+<!-- Close Mainbody and Sitecontainer and start footer
+  ================================================== -->
+<div class="clear"></div>
+
+<script type="text/javascript" src="template/singcere_power/src/js/jquery-1.4.2.min.js"></script> 
+<script type="text/javascript"> jQuery.noConflict(); </script>
+<script type="text/javascript">
+<!--
+function articlepreview(obj) {
+	aid = jQuery(obj).attr('data-aid');
+	previewdiv = jQuery('.post-preview-' + aid);
+	if(previewdiv.is(":visible")) {
+		previewdiv.slideUp(600);
+		return ;
+	}
+	jQuery('.prediv').each(function() {
+		jQuery(this).slideUp(600);
+	});
+	jQuery.ajax({
+		url: "plugin.php?id=singcere_power_ext:ajax",
+		data: {mod: "articlepreview", aid:aid},
+		success: function(data) {
+			previewdiv.html(data).slideDown(600);
+		}
+		
+	});
+}
+//-->
+</script>
+<!--{template common/footer}-->

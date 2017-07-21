@@ -1,0 +1,8 @@
+<div id="social-icons">
+<!--{if $_G[setting][rssstatus] && !$_GET['archiveid']}-->
+<a href="portal.php?mod=rss&catid=$cat[catid]" class="rss-icon" title="RSS Feed" target="_blank"></a> <!--{/if}-->
+<a href="http://weibo.com/singcere" class="facebook-icon" title="Î¢²©" target="_blank"></a>
+<a href="#" class="delicious-icon" title="QQ¿Õ¼ä" target="_blank"></a>
+<a href="#" class="dribbble-icon" title="ÈËÈË" target="_blank"></a>
+</div>
+

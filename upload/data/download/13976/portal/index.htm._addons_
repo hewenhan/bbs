@@ -1,0 +1,188 @@
+<!--{template common/header}-->
+<style id="diy_style" type="text/css"></style>
+
+<div id="slider-wrapper"> 
+  
+  <!--[diy=power1]-->
+  <div id="power1" class="area"></div>
+  <!--[/diy]-->
+  
+  <div id="slider-inner-bg">&nbsp;</div>
+</div>
+<div id="social-wrapper">
+  <div id="scroller"> <span id="scroller-title">大家在说<span class="scroller-bullet">&rsaquo;&rsaquo;</span></span>
+    <div id="scroller-marquee-wrapper"> 
+      
+      <!--[diy=power2]-->
+      <div id="power2" class="area"></div>
+      <!--[/diy]--> 
+      
+    </div>
+  </div>
+  
+  <!--{subtemplate common/social}--> 
+</div>
+<div id="content-wrapper">
+  <div id="content" class="shift-down">
+    <div id="dropdown-filter">
+      <ul>
+        <li class="order-by-text curr" data-type="new">最新文章</li>
+        <li class="order-by-text" data-type="week-hot">一周最热</li>
+        <li class="order-by-text" data-type="month-hot">月度最热</li>
+      </ul>
+      <div class="cl"></div>
+    </div>
+    <div id="main_area" class="area"></div>
+  </div>
+  <div id="sidebar">
+    <div id="sidebar-posts-widget-3" class="widget sidebarposts">
+      <div class="posts-widget"> 
+        <!--[diy=power4]-->
+        <div id="power4" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+    <div id="bp_core_recently_active_widget-3" class="widget widget_bp_core_recently_active_widget">
+      <div class="avatar-block"> 
+        <!--[diy=power6]-->
+        <div id="power6" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+    <div id="gp-items-you-follow" class="widget wpfp_users_favorites_widget_view"> 
+      <!--[diy=power7]-->
+      <div id="power7" class="area"></div>
+      <!--[/diy]--> 
+    </div>
+  </div>
+</div>
+<div class="footer-widgets-border-left"></div>
+<div class="footer-widgets-border-right"></div>
+<div id="footer-widgets">
+  <div class="footer-widget-outer footer-third">
+    <div id="footer-posts-widget-3" class="footer-widget-inner widget footerposts">
+      <div class="posts-widget"> 
+        <!--[diy=power8]-->
+        <div id="power8" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+  </div>
+  <div class="footer-widget-outer footer-third">
+    <div id="footer-posts-widget-4" class="footer-widget-inner widget footerposts">
+      <div class="posts-widget"> 
+        <!--[diy=power9]-->
+        <div id="power9" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+  </div>
+  <div class="footer-widget-outer footer-third">
+    <div id="footer-posts-widget-5" class="footer-widget-inner widget footerposts">
+      <div class="posts-widget"> 
+        <!--[diy=power10]-->
+        <div id="power10" class="area"></div>
+        <!--[/diy]--> 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+<script type="text/javascript" src="template/singcere_power/src/js/jquery-1.4.2.min.js"></script> 
+<script type="text/javascript"> jQuery.noConflict(); </script> 
+<script type="text/javascript" src="template/singcere_power/src/js/jquery.jcarousel.min.js"></script>
+<link rel="stylesheet" type="text/css" href="template/singcere_power/src/css/skin.css" />
+
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"{$_G['cache']['plugin']['singcere_power_ext']['ds_short_name']}"};
+	(function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = 'http://static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+
+
+	function loadarticle(a) {
+		jQuery.ajax({
+			url: "plugin.php?id=singcere_power_ext:ajax",
+			data: {mod: "loadarticle", type: a},
+			success: function(data) {
+				if(data) {
+					jQuery('#main_area').html(data);
+					//newItems.each(function(index) {
+					//	jQuery('.article-block').isotope('insert', jQuery(this));
+					//	setTimeout("jQuery('.article-block').isotope({ layoutMode : 'masonry' });",500);
+					//});
+					<!--{if $_G['cache']['plugin']['singcere_power_ext']['ds_on']}-->
+					if(typeof(DUOSHUO) != 'undefined') DUOSHUO.ThreadCount('.ds-thread-count');
+					<!--{/if}-->
+				} else {
+					jQuery('.paginationbutton').hide();
+				}
+				
+			}
+		});
+	}
+	
+		function articlepreview(obj) {
+			aid = jQuery(obj).attr('data-aid');
+			previewdiv = jQuery('.post-preview-' + aid);
+			if(previewdiv.is(":visible")) {
+				previewdiv.slideUp(600);
+				return ;
+			}
+			jQuery('.prediv').each(function() {
+				jQuery(this).slideUp(600);
+			});
+			jQuery.ajax({
+				url: "plugin.php?id=singcere_power_ext:ajax",
+				data: {mod: "articlepreview", aid:aid},
+				success: function(data) {
+					previewdiv.html(data).slideDown(600);
+				}
+				
+			});
+		}
+       function mycarousel_initCallback(carousel) {
+        // Disable autoscrolling if the user clicks the prev or next button.
+	        carousel.buttonNext.bind('click', function() {
+	        carousel.startAuto(0);
+	        });
+	        
+	        carousel.buttonPrev.bind('click', function() {
+	        carousel.startAuto(0);
+	        });
+	        
+	        // Pause autoscrolling if the user moves with the cursor over the clip.
+	        carousel.clip.hover(function() {
+	        carousel.stopAuto();
+	        }, function() {
+	        carousel.startAuto();
+	        });
+	        };
+	        
+	        jQuery(document).ready(function() {
+		        jQuery('#mycarousel').jcarousel({
+		        auto: 3,
+		        wrap: 'last',
+				scroll: 4,
+		        initCallback: mycarousel_initCallback
+		        });
+	        	
+		        jQuery('#dropdown-filter li').each(function() {
+		    		var _this = jQuery(this);
+		    		_this.click(function(){
+		    			_this.addClass('curr').siblings().removeClass('curr');
+		    			loadarticle(_this.attr('data-type'));
+		    		});
+		    	});
+	        
+		        jQuery('#dropdown-filter li:first').click();
+        	});
+	        
+        
+	</script> 
+<!--{template common/footer}--> 
